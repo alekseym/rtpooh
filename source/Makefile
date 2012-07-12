@@ -1,5 +1,6 @@
-rtpooh:rtpooh.o bear.o engine.o turbo_engine.o pid.o
-	g++ -o rtpooh rtpooh.o bear.o engine.o turbo_engine.o pid.o
+rtpooh:rtpooh.o bear.o engine.o turbo_engine.o pid.o flying_bear.o 
+	g++ -o rtpooh rtpooh.o bear.o engine.o turbo_engine.o pid.o \
+	flying_bear.o
 
 
 rtpooh.o:rtpooh.cpp
@@ -16,6 +17,9 @@ turbo_engine.o:turbo_engine.cpp
 	
 pid.o:pid.cpp
 	g++ -c pid.cpp
+	
+flying_bear.o:flying_bear.cpp
+	g++ -c flying_bear.cpp
 	
 clean:
 	rm *.o
