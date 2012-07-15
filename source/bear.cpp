@@ -3,82 +3,49 @@
 
 const float g=9.8;
 
-Bear::Bear()
-{
-  m = 5;
-  h = 0;
-  H = 0;
-  v = 0;
-  a = 0;
-  
-}
-
-
-Bear::Bear(float nm, float nH){
+Bear::Bear(float nm, float nh, float nv0){
 	m=nm;
-	H=nH;
+	h=nh;
+	v0=nv0;
+	v=nv0;
 	a=0;
-	h=0;
 	t=0;
-	v = 0;
-}
+};
 
-Bear::~Bear()
-{
+Bear::~Bear(){};
 
-}
+float Bear::getHeight(){return h;};
 
+float Bear::getMass(){return m;};
 
-void Bear::flyup(){
-	h+=a*0.1*0.1/2;
-}
+float Bear::getAcceleration(){return a;};
 
-void Bear::flydown(){
-	h+=a*0.1*0.1/2;
-	if(h<0) h=0;
-}
+void Bear::setHeight(float nh){h=nh;};
 
-void Bear::eat(){
-	m+=0.1;
-}
+void Bear::setSpeed0(float nv0){v0=nv0;};
 
-void Bear::freeze(){
-	if (h==H) eat();
-}
+float Bear::getSpeed(){return v;};
 
-void Bear::step(){
-//	a=(getF()-m*g)/m          //функция getF() в классе двигателя, возвращает тягу
-	t+=0.1;
-	if (a>0) 
-	   flyup();
-	if (a==g) 
-	   freeze();
-	if (a<0) 
-	   flydown();
-}
-	
-float Bear::getHeight()
-{
-  return h;
-}
-
-float Bear::getMass()
-{
-  return m;
-}
-
-float Bear::getAcceleration()
-{
-  return a;
-}
-
-void Bear::setHollowHeight(float nH)
-{ 
-   h=nH;
-}
-
-float Bear::getHollowHeight()
-{
-  return H;
-}
+void Bear::move(float dt){
+	bool f=1;
+	if (h!=0){
+		if (f){
+			v-=g*t;
+			h+=v0*t-(g*t*t)/2;
+			if (v<0){
+				v=v*(-1);
+				f=0;
+			};
+		}
+		else {
+			v+=g*t;
+			h-=(g*t*t)/2;
+			if (h<0) {
+				h=0;
+				v=0;
+			};
+		};
+	};
+	t+=dt;
+};
 
