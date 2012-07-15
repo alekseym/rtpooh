@@ -2,23 +2,20 @@
 #define _bear_h
 
 class Bear{
-	float m,a,v,h,t;
-	float H;	//высота, на которой расположено дупло
+	float m,a,v0,v,h,t;
 public:
         Bear();
-	Bear(float nm, float nH);
+	Bear(float nm, float nH, float nv);
 	virtual ~Bear();
 	
-	void flyup();
-	void flydown();
-	void freeze();
-	void eat();
-	void step();
 	float getHeight();
 	float getMass();
 	float getAcceleration();
-	void setHollowHeight(float nH);
-	float getHollowHeight();
+	void setHeight(float nH);
+	float getHeight();
+	void setSpeed0(float nv0);
+	float getSpeed();
+	void move(float dt);
 };
 
 #endif
